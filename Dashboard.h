@@ -62,17 +62,16 @@ namespace MOLib {
 		};
 		class Checkbox : public Boolean {
 		public:
-			Checkbox(std::string ref_Label, bool state = false) {
+			Checkbox(std::string ref_Label, bool state = false) : Boolean(ref_Label, state){
 				m_Label = ref_Label;
-				Boolean (ref_Label, state);
 			}
 			void Check() { Set(true); }
 			void Uncheck() { Set(false); }
 		};
 		class Indicator : public Boolean {
-			Indicator(std::string ref_Label, bool state = false){
+			Indicator(std::string ref_Label, bool state = false) : Boolean(ref_Label, state){
 				m_Label = ref_Label;
-				Boolean(ref_Label, state);
+
 			}
 			void TurnOn() { Set(true); }
 			void TurnOff() { Set(false); }

@@ -7,18 +7,13 @@ namespace MOLib {
 			class ToggleLight {
 			public:
 				ToggleLight(uint port): sol_Light(port) {}
-				bool IsOn() {
-					return m_State == LightState::kOn;
+				LightState Get() {
+					return m_State;
 				}
 				void Set(LightState state) {
 					tmr_Interval.Stop();
 					m_Blinking = false;
 					m_State = state;
-				}
-				void Set(bool IsOn) {
-					tmr_Interval.Stop();
-					m_Blinking = false;
-					m_State = (IsOn() ? LightState::kOn : LightState::kOff);
 				}
 				void Blink(double seconds) {
 					m_Interval = seconds;
@@ -33,10 +28,10 @@ namespace MOLib {
 					if (m_Blinking) {
 						if (tmr_Interval.Get() >= m_Interval) {
 							tmr_Interval.Reset();
-							m_State = (!IsOn() ? LightState::kOn : LightState::kOff);
+							m_State = (m_State == LightState::kOn ? LightState::kOff : LightState::kOff);
 						}
 					}
-					sol_Light.Set(IsOn());
+					sol_Light.Set(m_State == LightState::kOn);
 				}
 			private:
 				WPILib::Solenoid sol_Light;
