@@ -4,3 +4,4 @@
 #include "Drivetrain.h"
 #include "Lights.h"
 #include "Sensors.h"
+#include "HumanControls.h"
