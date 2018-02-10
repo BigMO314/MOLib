@@ -1,17 +1,16 @@
 #pragma once
 
-#include "WPIScope.h"
-#include "Utility.h"
+#include "Utilities.h"
 
 namespace MOLib{
 	namespace HumanControls{
 		class XboxController: public WPILib::XboxController{
 		public:
 			XboxController(uint port, double deadband = 0.15): WPILib::XboxController(port), m_Deadband(deadband) {}
-			virtual ~XBoxController() {}
+			virtual ~XboxController() {}
 			double GetX(JoystickHand hand) const override { return ApplyDeadband(-WPILib::XboxController::GetX(hand)); }
 			double GetY(JoystickHand hand) const override { return ApplyDeadband(-WPILib::XboxController::GetY(hand)); }
-			double GetTriggerAxis(JoystickHand hand) const override { return ApplyDeadband(WPILib::XboxController::GetTriggerAxis(hand)); }
+			double GetTriggerAxis(JoystickHand hand) const { return ApplyDeadband(WPILib::XboxController::GetTriggerAxis(hand)); }
 
 			void ConfigDeadband(double value){ m_Deadband = value; }
 
