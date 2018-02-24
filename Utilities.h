@@ -14,7 +14,6 @@ namespace CTRLib{
 }
 
 #define NullPtr 0
-
 namespace MOLib{
 	namespace Utilities{
 		namespace Math{
@@ -36,6 +35,8 @@ namespace MOLib{
 		}
 
 		namespace Measurements{
+			constexpr long double operator "" _in (long double inches)		{ return inches * .0254;			}
+			constexpr long double operator "" _ft (long double feet)		{ return feet * 12.0 * .0254;		}
 			//TODO: Figure out if this is possible
 		}
 	}

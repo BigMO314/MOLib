@@ -69,6 +69,7 @@ namespace MOLib {
 			void Uncheck() { Set(false); }
 		};
 		class Indicator : public Boolean {
+		public:
 			Indicator(std::string ref_Label, bool state = false) : Boolean(ref_Label, state){
 				m_Label = ref_Label;
 

@@ -19,15 +19,34 @@ namespace MOLib{
 			uint m_Positions = 1;
 			const double m_MaxVoltage = 1.0;
 		};
+
 		class AnalogGyro : public WPILib::AnalogGyro{
 		public:
 			AnalogGyro(int channel)
 			:WPILib::AnalogGyro(channel) {}
 
-			void SetAngleScale(double scale) { m_Scale = scale; }
+			void ConfigAngleScale(double scale) { m_Scale = scale; }
 			double GetAngle() const override { return WPILib::AnalogGyro::GetAngle() * m_Scale; }
 		private:
 			double m_Scale = 1.0;
 		};
+
+		class Jumper : public WPILib::DigitalInput {
+		public:
+			Jumper(int channel)
+			:WPILib::DigitalInput(channel) {}
+			bool Get() const { return !WPILib::DigitalInput::Get(); }
+		};
+
+		class MagEncoder : public WPILib::PIDSource {
+		public:
+			MagEncoder(CTRLib::TalonSRX *mtr_Talon) : mtr_Talon(mtr_Talon) {}
+			double PIDGet() override { return mtr_Talon->GetSelectedSensorPosition(0); }
+			void Reset() { mtr_Talon->SetSelectedSensorPosition(0, 0, 0); }
+		private:
+			CTRLib::TalonSRX *mtr_Talon;
+		};
+
+		WPILib::DigitalInput typedef PhotoEye;
 	}
 }
