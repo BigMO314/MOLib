@@ -2,6 +2,7 @@
 
 #include "Utilities.h"
 #include "Sensors.h"
+#include "Vision.h"
 
 namespace MOLib {
 	namespace PID {
@@ -86,11 +87,22 @@ namespace MOLib {
 			virtual ~GyrLoop() {}
 			GyrLoop(WPILib::GyroBase* ref_Source)
 			:BaseLoop(ref_Source){ this->gyr_Source = ref_Source; }
-			GyrLoop(double P, double I, double D, WPILib::GyroBase* ref_Source) :BaseLoop(P, I, D, ref_Source) { this->gyr_Source = ref_Source; }
+			GyrLoop(double P, double I, double D, WPILib::GyroBase* ref_Source)
+			:BaseLoop(P, I, D, ref_Source) { this->gyr_Source = ref_Source; }
 			virtual void ResetSource() override { gyr_Source->Reset(); }
 			virtual void CalibrateSource() override { gyr_Source->Calibrate(); }
 		private:
 			WPILib::GyroBase* gyr_Source;
+		};
+
+		class LimeLoop : public BaseLoop {
+		public:
+			LimeLoop(Vision::LimeLight *ref_Source)
+			:BaseLoop(ref_Source){ this->lml_Source = ref_Source; }
+			LimeLoop(double P, double I, double D, Vision::LimeLight *ref_Source)
+			:BaseLoop(P, I, D, ref_Source) { this->lml_Source = ref_Source; }
+		private:
+			Vision::LimeLight	*lml_Source;
 		};
 	}
 }
