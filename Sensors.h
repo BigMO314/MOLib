@@ -41,10 +41,13 @@ namespace MOLib{
 		class MagEncoder : public WPILib::PIDSource {
 		public:
 			MagEncoder(CTRLib::TalonSRX *mtr_Talon) : mtr_Talon(mtr_Talon) {}
-			double PIDGet() override { return mtr_Talon->GetSelectedSensorPosition(0); }
+			void ConfigDistancePerPulse(double dist) { m_DistancePerPulse = dist; }
+			double PIDGet() override { return GetDistance(); }
+			double GetDistance() { return mtr_Talon->GetSelectedSensorPosition(0) * m_DistancePerPulse; }
 			void Reset() { mtr_Talon->SetSelectedSensorPosition(0, 0, 0); }
 		private:
 			CTRLib::TalonSRX *mtr_Talon;
+			double m_DistancePerPulse = 0.0;
 		};
 
 		WPILib::DigitalInput typedef PhotoEye;

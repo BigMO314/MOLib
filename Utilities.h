@@ -2,6 +2,8 @@
 
 #include "WPILib.h"
 #include "ctre/phoenix.h"
+#include "networktables/NetworkTableEntry.h"
+#include "networktables/NetworkTableInstance.h"
 
 #undef bool
 #undef true
@@ -35,8 +37,8 @@ namespace MOLib{
 		}
 
 		namespace Measurements{
-			constexpr long double operator "" _in (long double inches)		{ return inches * .0254;			}
-			constexpr long double operator "" _ft (long double feet)		{ return feet * 12.0 * .0254;		}
+			constexpr long double operator "" _in (long double inches)		{ return inches * 0.0254;			}
+			constexpr long double operator "" _ft (long double feet)		{ return feet * 12.0 * 0.0254;		}
 			//TODO: Figure out if this is possible
 		}
 	}
